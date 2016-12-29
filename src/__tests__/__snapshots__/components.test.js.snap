@@ -1,0 +1,43 @@
+exports[`components <App /> renders correctly 1`] = `
+<div>
+  <h1>
+    Welcome to XPTDR\'s React 
+    <a
+      href="https://github.com/xdptdr">
+      GitHub
+    </a>
+     page
+  </h1>
+  <p>
+    I\'m using this page for experimenting with React.
+  </p>
+  <p>
+    I got started here with 
+    <a
+      href="http://academy.plot.ly/#frontend">
+      the Plotly academy tutorial
+    </a>
+  </p>
+  <p>
+    I learnt about that tutorial on the 
+    <a
+      href="https://facebook.github.io/jest/">
+      Jest
+    </a>
+     project page.
+  </p>
+  <p>
+    Now, here\'s a button.
+  </p>
+  <div
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }>
+    <button>
+      I\'m a lovely sexy button
+    </button>
+  </div>
+</div>
+`;
