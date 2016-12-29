@@ -1,7 +1,3 @@
-.button {
-	text-shadow:none;
-}
-
 .button.googleButton {
 	display: inline-block;
 	border: 1px solid #4285f4;
@@ -31,4 +27,3 @@
 	background-color:#c9302c;
 	border-color:#ac2925;
 }
-
