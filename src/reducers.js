@@ -11,10 +11,6 @@ var initialState = fromJS({
 
 export default function mainReducer(state = initialState, action) {
   switch (action.type) {
-    case 'CLICK_BUTTON':
-      return state.set('page', 'button');
-	case 'CLICK_EXPERIMENT':
-      return state.set('page', 'experiment');
 	case 'TOGGLE_DISABLED':
       return state.set('enabled', !state.get('enabled'));
 	case 'GOTO_PAGE':
