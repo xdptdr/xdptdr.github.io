@@ -25,6 +25,8 @@ export default class MenuBar extends React.Component {
 		  <Button text="HOME" onClick={this.handleMenuClicked("home")}/>
 		  <Spacing/>
 		  <Button text="BUTTONS" onClick={this.handleMenuClicked("buttons")}/>
+		  <Spacing/>
+		  <Button text="POPUP MENUS" onClick={this.handleMenuClicked("popup")}/>
 	    </div>;
 	}
 }

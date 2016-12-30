@@ -11,3 +11,22 @@ export function gotoPage(page) {
   };
 }
 
+export function contextMenuOpen(params) {
+  return {
+    type: 'CONTEXT_MENU_OPEN',
+	params: params
+  };
+}
+
+export function contextMenuClose() {
+  return {
+    type: 'CONTEXT_MENU_CLOSE'
+  };
+}
+
+export function updateScroll(params) {
+  return {
+    type: 'CONTEXT_MENU_UPDATE_SCROLL',
+	params: params
+  };
+}

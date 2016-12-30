@@ -4,15 +4,16 @@ import { connect } from 'react-redux';
 import Button from './Button.js';
 import MenuBar from './MenuBar.js';
 import Experiment from './Experiment.js';
-import ReactDOMServer from 'react-dom/server'
-import beautify from 'json-beautify';
+import ReactDOMServer from 'react-dom/server';
+import PopupStory from './PopupStory.js';
 import _ from 'lodash';
 
 import {
-  clickButton,
-  clickExperiment,
   toggleDisabled,
-  gotoPage
+  gotoPage,
+  contextMenuOpen,
+  contextMenuClose,
+  updateScroll
 } from './actions';
 
 
@@ -25,12 +26,6 @@ export class App extends React.Component {
 			this.gotoPage(page);
 		}
 	}
-	clickButton = (evt) => {
-        this.props.dispatch(clickButton());
-    };
-	clickExperiment = (evt) => {
-        this.props.dispatch(clickExperiment());
-    };
 	toggleDisabled = (evt) => {
 		this.props.dispatch(toggleDisabled());
 	};
@@ -41,6 +36,15 @@ export class App extends React.Component {
 			alert('You are not expected to click here. Button is disabled.');
 		}
 	};
+	handleContextMenu = (params) => {
+		this.props.dispatch(contextMenuOpen(params));
+	};
+	updateScroll = (deltaY, scrollTop) => {
+		this.props.dispatch(updateScroll({deltaY, scrollTop}));
+	};
+	handleCloseContextMenu = () => {
+		this.props.dispatch(contextMenuClose());
+	};
 	render() {
 	
 		let jsonify = function(c) {
@@ -50,6 +54,7 @@ export class App extends React.Component {
 		let page = this.props.redux.get('page');
 		let enabled = this.props.redux.get('enabled');
 		let cat = this.props.redux.get('cat');
+		let contextMenuParams = this.props.redux.get('contextMenuParams');
 		
 		let standardButtonStyle={
 			backgroundColor:'rgb(221,221,221)',
@@ -80,6 +85,16 @@ export class App extends React.Component {
 		switch(page) {
 			case 'experiment':
 				content = <Experiment />;
+				break;
+			case 'popup':
+				content = <div className="content">
+					<PopupStory
+						onContextMenu={this.handleContextMenu}
+						onCloseContextMenu={this.handleCloseContextMenu}
+						contextMenuParams={contextMenuParams}
+						onUpdateScroll={this.updateScroll}
+					/>
+				</div>;
 				break;
 			case 'buttons':
 				let b1 = <Button text="A button" type="button" />;
@@ -180,6 +195,9 @@ export class App extends React.Component {
 					<p>I got started here with <a href="http://academy.plot.ly/#frontend">the Plotly academy tutorial</a></p>
 					<p>I learnt about that tutorial on the <a href="https://facebook.github.io/jest/">Jest</a> project page.</p>
 					<p>Then I learnt it was kinda easy to deploy to GitHub pages on the <a href="https://github.com/facebookincubator/create-react-app#getting-started">create-react-app</a> project page.</p>
+					<p>One of my interests in life involves finding the answer to the following question:</p>
+					<p style={{textAlign:'center',fontWeight:'bold'}}>What is a reusable React component ?</p>
+					<p></p>
 					<p>Now, here are some buttons.</p>
 				</div>;
 		}
@@ -191,19 +209,21 @@ export class App extends React.Component {
 				width:'100%'
 			}} className="header">
 				<div style={{
-					maxWidth:'1400px',
+					maxWidth:'1440px',
 					margin:'0px auto',
 					position:'relative'
 				}}>
 					<div className="xdptdr-title" onClick={this.gotoPageEvt('home')}>XDPTDR</div>
-					<img src={cat} style={{position:'absolute',left:'350px',top:'10px'}}/>
+					<img src={cat} role="presentation" style={{position:'absolute',left:'350px',top:'10px'}}/>
 				</div>
 			</header>
 			<div style={{
-				maxWidth:'1400px',
+				maxWidth:'1440px',
 				margin:'0px auto',
-				borderTop:'solid 32px #273547'	,
-				paddingTop:'10px'
+				borderTop:'solid 32px #273547',
+				paddingTop:'15px',
+				paddingLeft:'20px',
+				paddingRight:'20px'
 			}}>
 				<MenuBar onChange={this.gotoPage}/>
 				{content}

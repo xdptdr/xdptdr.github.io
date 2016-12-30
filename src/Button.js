@@ -15,8 +15,7 @@ export default class Button extends React.Component {
 			text = "A button",
 			className,
 			classNamePrefix='',
-			enabled=true,
-			onClick
+			enabled=true
 		} = this.props;
 		let classNameR = "button";
 		if(classNamePrefix) {
